@@ -1,41 +1,31 @@
+#include <iostream>
 #include "Test.h"
 #include "Fila.h"
-#include <iostream>
+#include <fstream>
+#include <string>
 #include "Commands.h"
 
-int main(int argc, char *argv[])
-{
+using namespace std;
 
-    Fila *listaFilas;
-
+int main(int argc, char const *argv[])
+{   
+    fstream comandos(argv[1]);
+    string comandosDetail;
+    
     int obtemDigitado;
-    cin >> obtemDigitado;
+    Fila *listaFilas;
+    Fila* historico = new Fila();
+
+    getline(comandos, comandosDetail);
+    obtemDigitado = stoi(comandosDetail);
     listaFilas = new Fila[obtemDigitado];
 
-    Fila* historico = new Fila();
-    
-    listaFilas[2].enfileirarElemento("2");
-    listaFilas[1].enfileirarElemento("1");
-    listaFilas[1].enfileirarElemento("2");
-    listaFilas[1].enfileirarElemento("3");
-    listaFilas[1].enfileirarElemento("4");
-    listaFilas[1].enfileirarElemento("5");
+    while (getline(comandos, comandosDetail))
+    {
+        chamaComando(listaFilas, obtemDigitado, comandosDetail, historico);
+    }
 
-    warn(listaFilas, obtemDigitado, 1, 3);
-
-    // listaFilas[1].ImprimeHistorico();
-
-
-    // cout << f.obtemTamanho();
-
-    // f.limparFila();
-
-    // f.mostrarFila();
-
-    // listaFilas[2].ImprimeHistorico();
-    // listaFilas[1].ImprimeHistorico();
-    //    f.~Fila();
-
+    comandos.close();
     delete historico;
     delete[] listaFilas;
     return 0;

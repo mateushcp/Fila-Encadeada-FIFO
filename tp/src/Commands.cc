@@ -1,8 +1,53 @@
+#include <iostream>
 #include "Commands.h"
 #include <string>
 
 using namespace std;
 
+void chamaComando(Fila* listaFilas, int obtemDigitado, string detail, Fila* filaAux)
+{   
+    int obtemComandos1;
+    int obtemComandos2;
+    string auxString;
+
+    if (detail.substr(0,4) == "INFO")
+    {   
+        cout << "entrei info" << endl;
+        obtemComandos1 = stoi(detail.substr(5,6));
+        auxString = detail.substr(8, detail.size()-9);
+        info(listaFilas, obtemDigitado, obtemComandos1, auxString);
+    }
+    else if (detail.substr(0,4) == "WARN")
+    {
+        cout << "entrei warn" << endl;
+        obtemComandos1 = stoi(detail.substr(5,6));
+        obtemComandos2 = stoi(detail.substr(7,8));
+        warn(listaFilas, obtemDigitado, obtemComandos1, obtemComandos2);
+    }
+    else if (detail.substr(0,4) == "TRAN")
+    {
+        cout << "entrei tran" << endl;
+        obtemComandos1 = stoi(detail.substr(5,6));
+        obtemComandos2 = stoi(detail.substr(7,8));
+        tran(listaFilas, obtemDigitado, obtemComandos1, obtemComandos2);
+    }
+    else if (detail.substr(0,4) == "ERRO")
+    {
+        cout << "entrei erro" << endl;
+        obtemComandos1 = stoi(detail.substr(5,6));
+        error(listaFilas, obtemDigitado, obtemComandos1);
+    }
+    else if (detail.substr(0,4) == "SEND")
+    {
+        cout << "entrei send" << endl;
+        send(listaFilas, obtemDigitado, filaAux);
+    }
+    else if (detail.substr(0,5) == "FLUSH")
+    {
+        cout << "entrei flush" << endl;
+        flush(listaFilas, obtemDigitado, filaAux);
+    }
+}
 void info(Fila* listaFilas, int obtemDigitado, int id, string detail) 
 {
     listaFilas[id].enfileirarElemento(detail);
@@ -54,8 +99,5 @@ void warn(Fila* listaFilas, int obtemDigitado, int id, int id2)
     aux1->setProx(aux2->obtemProx());
     listaFilas[id].setCabeca(aux2);
     listaFilas[id].getCabeca()->setProx(aux3);
-
     delete aux1;
-    delete aux2;
-    delete aux3;
 }

@@ -7,6 +7,8 @@
 
 using namespace std;
 
+void chamaComando(Fila* listaFilas, int obtemDigitado, string detail, Fila* filaAux);
+
 void flush(Fila* listaFilas, int obtemDigitado, Fila* filaAux);
 void send(Fila* listaFilas, int obtemDigitado, Fila* filaAux);
 void error(Fila* listaFilas, int obtemDigitado, int id);
